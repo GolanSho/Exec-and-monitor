@@ -11,6 +11,12 @@
 #set -x
 #######
 
+######  Description  ######
+
+# To start give -s #
+# To cancel give -c #
+# To Stop give -d #
+
 ######  Prep  ######
 
 	shift $((OPTIND-1))
