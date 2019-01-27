@@ -59,8 +59,7 @@ if [ -f ./usrprcfil.mon ];
     done
 fi
 }
-
-pid=$(pgrep -f procmon) 
+ 
 
 ######  Start  ######
                                    ####  what to do with getopts  ####
