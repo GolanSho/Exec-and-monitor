@@ -6,7 +6,7 @@
 #
 # Purpose : Monitoring User processes
 #
-# Ver : 2.0.0
+# Ver : 2.1.0
 ######################################
 #set -x
 #######
@@ -16,12 +16,12 @@
 # To start give -s #
 # To cancel give -c #
 # To Stop give -d #
-
+# To Suspend give -b #
 ######  Prep  ######
 
 	shift $((OPTIND-1))
-                                ####  Setting getopts on scd ####
-while getopts ":scd" opt; do
+                                ####  Setting getopts on scdbr ####
+while getopts ":scdbr" opt; do
   case $opt in
     s)
       Start=1
@@ -32,11 +32,17 @@ while getopts ":scd" opt; do
     d)
       Delete=1
       ;;
+    b)
+      Break=1
+      ;;
+    r)
+      Return=1
+      ;;
    \?)	      
       echo "Invalid option"
       ;;
     :)
-      echo "please choose option"
+      echo "please choose option (-scdbr)"
       ;;
   esac
 done
@@ -50,6 +56,8 @@ if [ -f ./usrprcfil.mon ];
     done
 fi
 }
+
+pid=$(pgrep -f procmon) 
 
 ######  Start  ######
                                    ####  what to do with getopts  ####
@@ -65,6 +73,16 @@ fi
 if [[ $Delete = 1 ]]; then
   rm ./usrprcfil.mon && echo "Monitoring Stopped" || 
   echo "Monitor not active"
+fi
+
+pid=$(pgrep -f prcmon)
+
+if [[ $Break = 1 ]]; then
+  kill -STOP $pid 
+fi
+
+if [[ $Return = 1 ]]; then
+  kill -CONT $pid
 fi
 
 ######  End  ######
