@@ -19,8 +19,8 @@
 # To Suspend give -b #
 ######  Prep  ######
 
-	shift $((OPTIND-1))
-                                ####  Setting getopts on scdbr ####
+	shift $((OPTIND-1)) 
+                               ####  Setting getopts on scdbr ####
 while getopts ":scdbr" opt; do
   case $opt in
     s)
@@ -40,12 +40,15 @@ while getopts ":scdbr" opt; do
       ;;
    \?)	      
       echo "Invalid option"
-      ;;
-    :)
       echo "please choose option (-scdbr)"
       ;;
+
   esac
 done
+
+if [[ -z $1 ]]; then 
+ echo "please choose option (-scdbr)"
+fi
 
 f_monusrprc(){
                                   ####  func for monitor ####
